@@ -1,0 +1,9 @@
+# Local development
+*.env
+*.dev
+.vscode
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml
