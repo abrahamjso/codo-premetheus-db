@@ -63,6 +63,7 @@ def create_assigned_hour(_obj):
 def in_assigned_hours_get_ids(_obj):
     _obj['assigment'] = getAssigmentIdByRaw(_obj['assigment'])
     _obj['owner'] = getProfessorIdByRaw(_obj['owner'])
+    _obj['room'] = getRoomIdByRoom(_obj['room'])
     return _obj
 
 def getProfessorIdByRaw(_rawName):
@@ -71,6 +72,10 @@ def getProfessorIdByRaw(_rawName):
 
 def getAssigmentIdByRaw(_rawName):
     result = db.Assigment.find_one({'rawName': _rawName})
+    return result['_id']
+
+def getRoomIdByRoom(_room):
+    result = db.Room.find_one({'room': _room})
     return result['_id']
 
 def getAssigmentsIdsByRaw(_arr_obj):
@@ -91,7 +96,7 @@ def getProfessorIdsByRaw(_arr_obj):
 def serialize_room(_obj):
     return {
         "room": _obj['Salon'],
-        "builing": '1',
+        "building": '1',
         "barcode": _obj['Salon'],
         "area": "1"
     }
@@ -129,6 +134,7 @@ def serialize_assigned_hours(_obj):
                     _arr_academy_hours['data'].append({
                         "day": _day,
                         "academyHour": _academy_hour,
+                        "room": _obj['Salon'],
                         "assigment": _obj['Materia'],
                         "owner": _obj['Maestro'],
                         "modality": _obj['Modalidad'],
